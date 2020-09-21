@@ -1,5 +1,5 @@
 # go-migrate
-[![PkgGoDev](https://pkg.go.dev/badge/tcfw/go-migrate)](https://pkg.go.dev/tcfw/go-migrate)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/tcfw/go-migrate)](https://pkg.go.dev/github.com/tcfw/go-migrate)
 
 Stupidly simple SQL migrations
 
