@@ -55,7 +55,7 @@ import (
 )
 
 //migs List of known migrations
-var migs []migrate.Migration = []migrate.Migration{}
+var migs migrate.MigrationList = migrate.MigrationList{}
 
 //register helper to register migrations from init
 func register(mig migrate.Migration) {
@@ -63,8 +63,8 @@ func register(mig migrate.Migration) {
 }
 
 //Migrate runs migrations up (run in main or init)
-func Migrate(db *sql.DB) error {
-	return migrate.Migrate(db, logrus.New(), migs)
+func Migrate(db *sql.DB, log *logrus.Logger) error {
+	return migrate.Migrate(db, log, migs)
 }
 
 ```
@@ -73,3 +73,4 @@ func Migrate(db *sql.DB) error {
  - File names are irrelevant which is why name and date are in the migration struct (possibly fix in future)
  - There's no auto migrate down like there is for up as increments aren't stored in groups (like in for example Laravel migrations in PHP) and it is assumed that if you are migrating down, it should probably be a manual process anyway
  - There is no DB table locking. 
+ - Any failures rollback the TX of the total increment over **multiple** migrations
