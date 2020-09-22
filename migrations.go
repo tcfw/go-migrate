@@ -40,7 +40,7 @@ func Migrate(db *sql.DB, log *logrus.Logger, migs []Migration) error {
 	return migrateUpN(db, log, toRun, len(toRun))
 }
 
-//migrateUpN runs N up incremenets
+//migrateUpN runs N up increments
 func migrateUpN(db *sql.DB, log *logrus.Logger, migs []Migration, n int) error {
 	tx, err := db.Begin()
 	if err != nil {
@@ -68,7 +68,7 @@ func migrateUpN(db *sql.DB, log *logrus.Logger, migs []Migration, n int) error {
 	return tx.Commit()
 }
 
-//migrateDownN runs N down incremenets
+//migrateDownN runs N down increments
 func migrateDownN(db *sql.DB, log *logrus.Logger, migs []Migration, n int) error {
 	tx, err := db.Begin()
 	if err != nil {
