@@ -1,13 +1,14 @@
 package pgx
 
 import (
+	"context"
 	"time"
 
-	"github.com/jackc/pgx"
+	"github.com/jackc/pgx/v4"
 )
 
 //MigrationIncrement applies an increment to the DB
-type MigrationIncrement func(tx *pgx.Tx) error
+type MigrationIncrement func(context.Context, pgx.Tx) error
 
 //SimpleMigration a simple struct where the up and down functions can be assigned by attributes
 type SimpleMigration struct {
@@ -29,18 +30,18 @@ func NewSimpleMigration(name string, date time.Time, up, down MigrationIncrement
 }
 
 //Up the apply increment
-func (tm *SimpleMigration) Up(tx *pgx.Tx) error {
+func (tm *SimpleMigration) Up(ctx context.Context, tx pgx.Tx) error {
 	if tm.up != nil {
-		return tm.up(tx)
+		return tm.up(ctx, tx)
 	}
 
 	return nil
 }
 
 //Down the rollback decrement
-func (tm *SimpleMigration) Down(tx *pgx.Tx) error {
+func (tm *SimpleMigration) Down(ctx context.Context, tx pgx.Tx) error {
 	if tm.down != nil {
-		return tm.down(tx)
+		return tm.down(ctx, tx)
 	}
 
 	return nil
